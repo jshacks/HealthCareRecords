@@ -17,7 +17,7 @@ interface Prop {}
 interface State {
 }
 
-const samples = [
+let samples = [
   {
     Sodium: 135.7,
     Potassium: 3.5,
@@ -45,8 +45,17 @@ const samples = [
     Glucose: 105.7,
     Cholesterol: 6.2,
     Calcium: 2.3
+  },
+  {
+    Sodium: 140.4,
+    Potassium: 5.3,
+    Glucose: 105.7,
+    Cholesterol: 6.2,
+    Calcium: 2.3
   }
 ];
+
+samples = samples.concat(samples).concat(samples);
 
 class App extends React.Component < Prop,
 State > {
@@ -56,10 +65,14 @@ State > {
   }
 
   getTag() {
-    let items = ["low", "normal", "high", "good"];
-    return items[Math.floor(Math.random()*items.length)];
+    let items = ["low", "normal", "high", "good", "needs caution", "excellent"];
+    return items[Math.floor(Math.random() * items.length)];
   }
 
+  getIcon() {
+    let items = ["red.png", "grey.png", "orange.png", "green.png"];
+    return items[Math.floor(Math.random() * items.length)];
+  }
   getTableHeader(data) {
     if (data.length == 0) {
       return
@@ -84,7 +97,7 @@ State > {
             <Row>
               <Col s={12}>
                 <Chip>
-                  <img src='https://image.flaticon.com/icons/svg/150/150654.svg' />
+                  <img src={this.getIcon()} />
                   {row[index]}
                 </Chip>
                 <Tag>{this.getTag()}</Tag>
